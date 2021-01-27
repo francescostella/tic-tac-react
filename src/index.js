@@ -157,32 +157,48 @@ class Game extends React.Component {
     let status;
 
     if (winner) {
-      status = 'The Winner is: ' + winner.player + '!!!';
+      status = 'The Winner is: ' + winner.player + '! ';
     }
 
     if (!winner) {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
+    const isDraw = moves.length === 10 && !winner;
+    const classNamesMessage = 'game-message ' + (isDraw ? 'is-draw' : '') + (winner ? 'is-winner' : '');
+
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board
-            winnerLine={winner?.line}
-            squares={current.squares}
-            onClick={(i) => this.handleClick(i)}
-          />
+      <div>
+        <div className="game">
+          <div className="game-board">
+            <Board
+              winnerLine={winner?.line}
+              squares={current.squares}
+              onClick={(i) => this.handleClick(i)}
+            />
+            <p className={winner || isDraw ? 'hidden' : ''}>
+              {status}
+            </p>
+          </div>
+          <div className="game-info">
+            <div>
+              <button 
+                onClick={() => this.handleSort()}
+              >
+                Sort {this.state.sortAscending ? 'ASC' : 'DESC'}
+              </button>
+            </div>
+            <ol>{moves}</ol>
+          </div>
         </div>
-        <div className="game-info">
-          <div>{status}</div>
+        
+        <div className={classNamesMessage}>
+          <h3>{winner ? status : 'DRAW'}</h3> 
           <div>
-            <button 
-              onClick={() => this.handleSort()}
-            >
-              Sort {this.state.sortAscending ? 'ASC' : 'DESC'}
+            <button onClick={() => window.location.reload()}>
+            {winner ? 'New Game' : 'Restart'}
             </button>
           </div>
-          <ol>{moves}</ol>
         </div>
       </div>
     );

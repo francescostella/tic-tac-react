@@ -49,10 +49,37 @@ ol, ul {
   flex-direction: row;
 }
 
+.game-board {
+
+}
+
 .game-info {
   margin-left: 20px;
 }
 
+.game-message {
+  display: none;
+  margin-top: 20px;
+  background-color: rgb(255, 201, 101);
+  padding: 20px;
+  text-align: center;
+  font-size: larger;
+}
+
+.game-message.is-draw {
+  display: block;
+  background-color: rgb(255, 201, 101);
+}
+
+.game-message.is-winner {
+  display: block;
+  background-color: rgb(134, 255, 101);
+}
+
 .active {
   font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }
