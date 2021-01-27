@@ -69,7 +69,9 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      sortAscending: true,
     }
+
   }
 
   handleClick(i) {
@@ -94,7 +96,7 @@ class Game extends React.Component {
 
     // DEV
     setTimeout(() => {
-      console.log(this.state.history);
+      console.log('History: ', this.state.history);
     }, 10);
   }
 
@@ -102,6 +104,20 @@ class Game extends React.Component {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
+    });
+  }
+
+  handleSort() {
+    if (this.state.sortAscending) {
+      // ASC
+    }
+
+    if (!this.state.sortAscending) {
+      // DESC
+    }
+
+    this.setState({
+      sortAscending: !this.state.sortAscending
     });
   }
 
@@ -124,10 +140,18 @@ class Game extends React.Component {
             >{desc}</button>
           </li>
         );
+    }).sort((moveA, moveB) => {
+      if (this.state.sortAscending) {
+        return moveA.key - moveB.key;
+      }
+
+      if (!this.state.sortAscending) {
+        return moveB.key - moveA.key;
+      }
     });
 
     let status;
-    
+
     if (winner) {
       status = 'The Winner is: ' + winner + '!!!';
     }
@@ -146,6 +170,13 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <div>
+            <button 
+              onClick={() => this.handleSort()}
+            >
+              Sort {this.state.sortAscending ? 'ASC' : 'DESC'}
+            </button>
+          </div>
           <ol>{moves}</ol>
         </div>
       </div>
