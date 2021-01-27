@@ -4,8 +4,6 @@ import './index.css';
 
 function Square(props) {
   const isWinnerSquare = props.winnerLine && props.winnerLine.includes(props.cellKey) ? 'is-winner-square' : '';
-  console.log("🚀 ~ file: index.js ~ line 21 ~ Square ~ props.winner", props.winner)
-  console.log("🚀 ~ file: index.js ~ line 20 ~ Square ~ props.cellKey", props.cellKey)
   const classes = `square ${isWinnerSquare}`;
   return (
     <button 
