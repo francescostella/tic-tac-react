@@ -1,5 +1,5 @@
 import React from 'react';
-import Square from './Square'; 
+import Square from '../Square/Square'; 
 import './Board.styles.css'
 
 class Board extends React.Component {
@@ -28,6 +28,7 @@ class Board extends React.Component {
 
       board.push(<div className="board-row" key={i}>{row}</div>)
     }
+    
     return board;
   }
 
