@@ -35,7 +35,7 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        {this.createBoard(4, 4)}
+        {this.createBoard(3, 3)}
       </div>
     );
   }
