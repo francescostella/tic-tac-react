@@ -1,4 +1,4 @@
-import './Square.styles.css';
+import './Square.styles.scss';
 
 const Square = (props) => {
   const isWinnerSquare = props.winnerLine && props.winnerLine.includes(props.cellKey) ? 'is-winner-square' : '';

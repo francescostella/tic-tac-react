@@ -1,7 +1,7 @@
 import React from 'react';
 import Board from '../Board/Board';
 import Utils from '../Utils';
-import './Game.style.css'
+import './Game.style.scss'
 
 class Game extends React.Component {
   constructor(props) {
