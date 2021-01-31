@@ -103,12 +103,12 @@ class Game extends React.Component {
     }
 
     const isDraw = moves.length === 10 && !winner;
-    const classNamesMessage = 'game-message ' + (isDraw ? 'is-draw' : '') + (winner ? 'is-winner' : '');
+    const classNamesMessage = 'game__message ' + (isDraw ? 'is-draw' : '') + (winner ? 'is-winner' : '');
 
     return (
       <div>
         <div className="game">
-          <div className="game-board">
+          <div className="game__board">
             <Board
               winnerLine={winner?.line}
               squares={current.squares}
@@ -118,7 +118,7 @@ class Game extends React.Component {
               {status}
             </p>
           </div>
-          <div className="game-info">
+          <div className="game__info">
             <div>
               <button 
                 onClick={() => this.handleSort()}
