@@ -15,22 +15,15 @@ class Board extends React.Component {
     );
   }
 
-  createBoard() {
-    const template = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8]
-    ];
-
+  createBoard(rows, columns) {
     const board = [];
+    let cellsCounter = 0;
 
-    for (let i = 0; i < template.length; i++) {
-      const templateRow = template[i];
+    for (let i = 0; i < rows; i++) {
       const row = [];
 
-      for (let j = 0; j < templateRow.length; j++) {
-        const cell = templateRow[j];
-        row.push(this.renderSquare(cell))
+      for (let j = 0; j < columns; j++) {
+        row.push(this.renderSquare(cellsCounter++));
       }
 
       board.push(<div className="board-row" key={i}>{row}</div>)
@@ -41,7 +34,7 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        {this.createBoard()}
+        {this.createBoard(4, 4)}
       </div>
     );
   }
