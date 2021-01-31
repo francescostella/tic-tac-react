@@ -1,7 +1,11 @@
+html, body {
+  min-height: 100%;
+}
+
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
-  background-color: #206b64;
+  background-image: radial-gradient( circle farthest-corner at 50% 18%,  rgba(19,170,82,1) 0%, rgba(0,102,43,1) 90% );
   color: #fff;
 }
 
