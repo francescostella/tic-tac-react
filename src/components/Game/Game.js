@@ -97,19 +97,31 @@ class Game extends React.Component {
     });
 
     const isDraw = moves.length === 10 && !winner;
-    const classNamesMessage = 'game__message ' + (isDraw ? 'is-draw' : '') + (winner ? 'is-winner' : '');
 
     return (
       <div>
         <div className="game">
           <div className="game__content">
-            <div className="game__players">
-              <button 
-                className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
-              >X</button>
-              <button 
-                className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
-              >O</button>
+            <div className="game__header">
+              <div className="game__players">
+                <button 
+                  className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
+                >X</button>
+                <button 
+                  className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
+                >O</button>
+              </div>
+
+              <div className={`game__message ${(isDraw ? 'is-draw' : '')} ${(winner ? 'is-winner' : '')}`}>
+                <h3 className="game__message-title">
+                  {winner ? 'The WINNER is ' + winner.player + '! ' : 'DRAW'}
+                </h3> 
+                <div>
+                  <button onClick={() => window.location.reload()}>
+                  {winner ? 'New Game' : 'Restart'}
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="game__board">
               <Board
@@ -123,20 +135,11 @@ class Game extends React.Component {
                 <button 
                   onClick={() => this.handleSort()}
                 >
-                  Sort {this.state.sortAscending ? 'ASC' : 'DESC'}
+                  Order by {this.state.sortAscending ? '▲' : '▼'}
                 </button>
               </div>
               <ol className="game__moves">{moves}</ol>
             </div>
-          </div>
-        </div>
-        
-        <div className={classNamesMessage}>
-          <h3>{winner ? 'The WINNER is ' + winner.player + '! ' : 'DRAW'}</h3> 
-          <div>
-            <button onClick={() => window.location.reload()}>
-            {winner ? 'New Game' : 'Restart'}
-            </button>
           </div>
         </div>
       </div>
