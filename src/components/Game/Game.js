@@ -19,6 +19,7 @@ class Game extends React.Component {
       sortAscending: true,
     }
 
+    this.baseState = Object.assign({}, this.state);
   }
 
   handleClick(i) {
@@ -50,6 +51,10 @@ class Game extends React.Component {
       stepNumber: step,
       xIsNext: (step % 2) === 0,
     });
+  }
+
+  handleResetGame() {
+    this.setState(this.baseState)
   }
 
   handleSort() {
@@ -114,7 +119,7 @@ class Game extends React.Component {
 
               <div 
                 className={`game__message ${(isDraw ? 'is-draw' : '')} ${(winner ? 'is-winner' : '')}`}
-                onClick={() => window.location.reload()}
+                onClick={() => this.handleResetGame()}
               >
                 <h3 className="game__message-title">
                   {winner ? 'The WINNER is ' + winner.player + '!!! ' : 'DRAW'}
