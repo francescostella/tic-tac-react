@@ -96,8 +96,6 @@ class Game extends React.Component {
       }
     });
 
-    let status;
-
     const isDraw = moves.length === 10 && !winner;
     const classNamesMessage = 'game__message ' + (isDraw ? 'is-draw' : '') + (winner ? 'is-winner' : '');
 
@@ -119,9 +117,6 @@ class Game extends React.Component {
                 squares={current.squares}
                 onClick={(i) => this.handleClick(i)}
               />
-              <p className={winner || isDraw ? 'hidden' : ''}>
-                {status}
-              </p>
             </div>
             <div className="game__info">
               <div>
@@ -137,7 +132,7 @@ class Game extends React.Component {
         </div>
         
         <div className={classNamesMessage}>
-          <h3>{winner ? status : 'DRAW'}</h3> 
+          <h3>{winner ? 'The WINNER is ' + winner.player + '! ' : 'DRAW'}</h3> 
           <div>
             <button onClick={() => window.location.reload()}>
             {winner ? 'New Game' : 'Restart'}
