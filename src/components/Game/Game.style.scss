@@ -11,6 +11,19 @@
     flex-direction: column;
     align-items: center;
   }
+  
+  &__players {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  &__player {
+    &--active {
+      background-color: red;
+      color: #fff;
+    }
+  }
 
   &__info {
     width: 100%;

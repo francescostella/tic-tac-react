@@ -98,14 +98,6 @@ class Game extends React.Component {
 
     let status;
 
-    if (winner) {
-      status = 'The WINNER is ' + winner.player + '! ';
-    }
-
-    if (!winner) {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-
     const isDraw = moves.length === 10 && !winner;
     const classNamesMessage = 'game__message ' + (isDraw ? 'is-draw' : '') + (winner ? 'is-winner' : '');
 
@@ -113,6 +105,14 @@ class Game extends React.Component {
       <div>
         <div className="game">
           <div className="game__content">
+            <div className="game__players">
+              <button 
+                className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
+              >X</button>
+              <button 
+                className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
+              >O</button>
+            </div>
             <div className="game__board">
               <Board
                 winnerLine={winner?.line}
