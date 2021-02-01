@@ -76,7 +76,7 @@ class Game extends React.Component {
       const col = history[move].coordinatesMove[1];
 
       const desc = move ?
-        history[move].player + ' made a move in row ' + row + ' and col ' + col :
+        history[move].player + ' in row ' + row + ' and col ' + col :
         'Go to game start';
         return (
           <li className="game__move" key={move} data-move-number={move}>

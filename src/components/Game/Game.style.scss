@@ -44,19 +44,25 @@
   &__move {
     display: flex;
     margin-bottom: 0.5rem;
+    position: relative;
 
     &::before {
       content: attr(data-move-number);
       font-weight: bold;
       margin-right: 0.5rem;
-      line-height: 1;
-      padding: 4px;
+      line-height: 1.7;
+      padding: 0 5px;
+      vertical-align: middle;
       position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
       background-color: #000;
     }
 
     button {
       line-height: 1;
+      font-size: 16px;
       cursor: pointer;
       background: none;
       border: 0;
