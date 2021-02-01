@@ -69,14 +69,15 @@
     padding: 4px;
     background: #fff;
     color: #ccc;
+    border-top: 4px solid #fff;
+    border-bottom: 4px solid #fff;
     
     &--active {
-      border-top: 4px solid rgb(218, 211, 0);
-      border-bottom: 4px solid rgb(218, 211, 0);
+      border-color: rgb(218, 211, 0);
       color: #111;
-      font-weight: bold;
+      // font-weight: bold;
       transform: scale(1.2);
-      transition: transform .4s ease-in-out, border .4s ease-in-out;
+      transition: all .4s ease-in-out;
     }
 
     &:first-child {
