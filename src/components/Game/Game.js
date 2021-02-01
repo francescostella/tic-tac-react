@@ -27,6 +27,13 @@ class Game extends React.Component {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
+    if ((this.state.history.length - 1) !== this.state.stepNumber) {
+      // Prevent players to make a new move if 
+      // a the players are visualizing a previous
+      // move using the 'Moves' tool
+      return;
+    }
+
     if (Utils.calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -50,6 +57,17 @@ class Game extends React.Component {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
+    });
+  }
+
+  handlePickPlayer() {
+    if (this.state.stepNumber !== 0 || this.state.history.length > 1) {
+      // Do nothing if the game is already started
+      return;
+    }
+
+    this.setState({
+      xIsNext: !this.state.xIsNext
     });
   }
 
@@ -111,9 +129,11 @@ class Game extends React.Component {
               <div className="game__players">
                 <button 
                   className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
+                  onClick={() => this.handlePickPlayer()}
                 >X</button>
                 <button 
                   className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
+                  onClick={() => this.handlePickPlayer()}
                 >O</button>
               </div>
 
