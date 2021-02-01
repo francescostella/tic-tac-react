@@ -25,6 +25,12 @@
     position: relative;
     cursor: pointer;
 
+    &:hover &-title {
+      &::after {
+        transform: scale(1.5);
+      }
+    }
+
     &-title {
       margin: 0;
 
@@ -35,6 +41,8 @@
         color: #fff;
         content: '⟳';
         font-size: 16px;
+        transform-origin: top right;
+        transition: transform .2s ease-in-out;
       }
     }
 
@@ -67,16 +75,16 @@
     border-radius: 3px;
     transition: transform .4s ease-in-out, border .4s ease-in-out;
     padding: 4px;
-    background: #fff;
-    color: #ccc;
-    border-top: 4px solid #fff;
-    border-bottom: 4px solid #fff;
+    background: rgba(0, 102, 43, .5);
+    color: #444;
+    border-top: 4px solid rgba(0, 102, 43, .1);
+    border-bottom: 4px solid rgba(0, 102, 43, .1);
     
     &--active {
       border-color: rgb(218, 211, 0);
-      color: #111;
-      // font-weight: bold;
-      transform: scale(1.2);
+      color: #fff;
+      font-weight: bold;
+      transform: scale(1.4);
       transition: all .4s ease-in-out;
     }
 
@@ -103,7 +111,23 @@
     &-order {
       border-radius: 3px;
       border: 0;
-      padding: 4px;
+      padding: 4px 8px;
+      background-color: #000;
+      color: #fff477;
+      transition: opacity .4s ease-in-out;
+      cursor: pointer;
+      
+      span {
+        font-size: 11px;
+      }
+
+      &:disabled {
+        opacity: .35;
+      }
+
+      &:hover {
+        background-color: rgb(36, 36, 36);
+      }
     }
   }
 

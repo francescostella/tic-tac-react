@@ -140,7 +140,7 @@ class Game extends React.Component {
                   onClick={() => this.handleSort()}
                   disabled={moves.length < 2}
                 >
-                  Order by {this.state.sortAscending ? '▲' : '▼'}
+                  Order by <span>{this.state.sortAscending ? '▲' : '▼'}</span>
                 </button>
               </div>
               <ol className="game__moves">{moves}</ol>
