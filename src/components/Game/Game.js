@@ -11,7 +11,7 @@ class Game extends React.Component {
       history: [
         {
           squares: Array(9).fill(null),
-          positionMove: [0, 0],
+          coordinatesMove: [0, 0],
         },
       ],
       stepNumber: 0,
@@ -30,12 +30,15 @@ class Game extends React.Component {
       return;
     }
 
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    const player = this.state.xIsNext ? 'X' : 'O';
+
+    squares[i] = player;
 
     this.setState({
       history: history.concat([{
         squares: squares,
-        positionMove: Utils.calculatePosition(i),
+        coordinatesMove: Utils.calculatePosition(i),
+        player: player,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
@@ -69,13 +72,14 @@ class Game extends React.Component {
     const winner = Utils.calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const row = history[move].positionMove[0];
-      const col = history[move].positionMove[1];
+      const row = history[move].coordinatesMove[0];
+      const col = history[move].coordinatesMove[1];
+
       const desc = move ?
-        'move #' + move + ' made in row ' + row + ' and col ' + col :
+        history[move].player + ' made a move in row ' + row + ' and col ' + col :
         'Go to game start';
         return (
-          <li key={move}>
+          <li className="game__move" key={move} data-move-number={move}>
             <button 
               onClick={() => this.jumpTo(move)}
               className={this.state.stepNumber === move ? 'active' : ''}
@@ -108,25 +112,27 @@ class Game extends React.Component {
     return (
       <div>
         <div className="game">
-          <div className="game__board">
-            <Board
-              winnerLine={winner?.line}
-              squares={current.squares}
-              onClick={(i) => this.handleClick(i)}
-            />
-            <p className={winner || isDraw ? 'hidden' : ''}>
-              {status}
-            </p>
-          </div>
-          <div className="game__info">
-            <div>
-              <button 
-                onClick={() => this.handleSort()}
-              >
-                Sort {this.state.sortAscending ? 'ASC' : 'DESC'}
-              </button>
+          <div className="game__content">
+            <div className="game__board">
+              <Board
+                winnerLine={winner?.line}
+                squares={current.squares}
+                onClick={(i) => this.handleClick(i)}
+              />
+              <p className={winner || isDraw ? 'hidden' : ''}>
+                {status}
+              </p>
             </div>
-            <ol>{moves}</ol>
+            <div className="game__info">
+              <div>
+                <button 
+                  onClick={() => this.handleSort()}
+                >
+                  Sort {this.state.sortAscending ? 'ASC' : 'DESC'}
+                </button>
+              </div>
+              <ol className="game__moves">{moves}</ol>
+            </div>
           </div>
         </div>
         
