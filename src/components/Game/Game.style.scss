@@ -22,19 +22,34 @@
     border-radius: 5px;
     text-align: center;
     font-size: larger;
+    position: relative;
+    cursor: pointer;
 
     &-title {
       margin: 0;
+
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 4px;
+        color: #fff;
+        content: '⟳';
+        font-size: 14px;
+      }
     }
 
     &.is-draw {
       display: block;
-      background-color: rgb(255, 201, 101, .5);
+      background-color: rgba(254, 165, 1, 0.824);
     }
 
     &.is-winner {
       display: block;
-      background-color: rgb(134, 255, 101, .5);
+      background-color: rgba(19, 170, 82, 1);
+
+      &:hover {
+        background: rgba(0, 102, 43, .5);
+      }
     }
   }
   
@@ -44,14 +59,15 @@
     justify-content: center;
     width: 100%;
   }
-
+  
   &__player {
     border: 0;
     width: 33%;
     font-size: 18px;
     border-radius: 3px;
-    transition: all .4s ease-in-out;
+    transition: transform .4s ease-in-out, border .4s ease-in-out;
     padding: 4px;
+    background: #fff;
     color: #ccc;
     
     &--active {
@@ -60,7 +76,7 @@
       color: #111;
       font-weight: bold;
       transform: scale(1.2);
-      transition: all .4s ease-in-out;
+      transition: transform .4s ease-in-out, border .4s ease-in-out;
     }
 
     &:first-child {
@@ -77,6 +93,17 @@
   &__info {
     width: 100%;
     margin: 10px 0;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+
+    &-order {
+      border-radius: 3px;
+      border: 0;
+      padding: 4px;
+    }
   }
 
   &__moves {
@@ -103,6 +130,7 @@
       left: 0;
       bottom: 0;
       background-color: #000;
+      color: #fff477;
     }
 
     button {
@@ -113,12 +141,12 @@
       border: 0;
       padding: 4px;
       width: 100%;
-      background-color: rgb(191, 255, 191);
+      background-color: #fff;
       border-radius: 5px;
 
       &:hover,
       &:focus {
-        background-color: rgb(247, 191, 132);
+        background-color: #fff477;
       }
     }
   }

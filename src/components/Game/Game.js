@@ -105,22 +105,20 @@ class Game extends React.Component {
             <div className="game__header">
               <div className="game__players">
                 <button 
-                  className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
+                  className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                 >X</button>
                 <button 
-                  className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner ? "hidden" : ""}`}
+                  className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                 >O</button>
               </div>
 
-              <div className={`game__message ${(isDraw ? 'is-draw' : '')} ${(winner ? 'is-winner' : '')}`}>
+              <div 
+                className={`game__message ${(isDraw ? 'is-draw' : '')} ${(winner ? 'is-winner' : '')}`}
+                onClick={() => window.location.reload()}
+              >
                 <h3 className="game__message-title">
-                  {winner ? 'The WINNER is ' + winner.player + '! ' : 'DRAW'}
+                  {winner ? 'The WINNER is ' + winner.player + '!!! ' : 'DRAW'}
                 </h3> 
-                <div>
-                  <button onClick={() => window.location.reload()}>
-                  {winner ? 'New Game' : 'Restart'}
-                  </button>
-                </div>
               </div>
             </div>
             <div className="game__board">
@@ -131,9 +129,11 @@ class Game extends React.Component {
               />
             </div>
             <div className="game__info">
-              <div>
+              <div className="game__controls">
                 <button 
+                  className="game__controls-order"
                   onClick={() => this.handleSort()}
+                  disabled={moves.length < 2}
                 >
                   Order by {this.state.sortAscending ? '▲' : '▼'}
                 </button>

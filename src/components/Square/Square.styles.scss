@@ -1,5 +1,5 @@
 .square {
-  background: none;
+  background: rgba(0, 102, 43, .5);
   color: #fff;
   border: 2px solid #cdc24e;
   float: left;
@@ -17,20 +17,17 @@
   max-width: 100px;
   max-height: 100px;
   cursor: pointer;
-}
+  transition: background .4s ease-in-out;
 
-.square:hover {
-  background-color: rgb(232, 252, 232, .2);
-}
+  &:hover {
+    background-color: rgba(#cdc24e, .2);
+  }
 
-.square.is-winner-square {
-  background: rgba(184, 255, 140, .2);
-}
+  &:focus {
+    outline: none;
+  }
 
-.square:focus {
-  outline: none;
-}
-
-.square:focus {
-  
+  &.is-winner-square {
+    background: rgba(19, 170, 82, 1);
+  }
 }
