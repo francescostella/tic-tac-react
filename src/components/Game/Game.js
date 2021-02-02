@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactSVG } from 'react-svg';
 import Board from '../Board/Board';
 import Utils from '../Utils';
 import AIPlayer from '../AIPlayer';
@@ -13,30 +14,30 @@ class Game extends React.Component {
         {
           squares: Array(9).fill(null),
           coordinatesMove: [0, 0],
+          isHuman: true,
         },
       ],
       stepNumber: 0,
       xIsNext: true,
       sortAscending: true,
     }
-
+    
+    this.isPlayingAI = false;
+    this.humanPlayer = this.state.xIsNext ? 'X' : 'O';
     this.baseState = Object.assign({}, this.state);
     this.AIPlayer = new AIPlayer('easy');
   }
 
   handleClick(i) {
-    if (!this.isAllowedMove()) {
+    if (this.isNotAllowedMove() || this.isPlayingAI) {
       return;
     }
 
-    this.registerMove(i);
-
-    setTimeout(() => {
-      this.passTurnToAI();
-    }, 1000);
+    this.registerMove(i, true);
   }
 
-  registerMove(move) {
+  registerMove(move, currentIsHuman) {
+
     const history = this.state.history.slice(0, this.state.history.length + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -54,31 +55,42 @@ class Game extends React.Component {
         squares: squares,
         coordinatesMove: Utils.calculatePosition(move),
         player: player,
+        isHuman: currentIsHuman
       }]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+    }, () => {
+      if (currentIsHuman) {
+        this.passTurnToAI();
+      }
     });
   }
 
   passTurnToAI() {
-    if (!this.isAllowedMove()) {
+    if (this.isNotAllowedMove()) {
       return;
     }
 
-    const history = this.state.history.slice(0, this.state.history.length + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
+    this.isPlayingAI = true;
 
-    const moveAI = AIPlayer.makeMove(squares);
-    this.registerMove(moveAI);
+    setTimeout(() => {
+      const history = this.state.history.slice(0, this.state.history.length + 1);
+      const current = history[history.length - 1];
+      const squares = current.squares.slice();
+  
+      const moveAI = AIPlayer.makeMove(squares);
+      this.registerMove(moveAI, false);
+      this.isPlayingAI = false;
+    }, 1000);
+
   }
 
-  isAllowedMove() {
+  isNotAllowedMove() {
     const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const current = history[history.length - 1];
     const winner = Utils.calculateWinner(current.squares);
 
-    if (!winner) {
+    if (winner) {
       // Prevent Players move IF there is already a winner
       return true;
     }
@@ -107,6 +119,8 @@ class Game extends React.Component {
     this.setState({
       xIsNext: !this.state.xIsNext
     });
+
+    this.humanPlayer = !this.state.xIsNext ? 'X' : 'O';
   }
 
   handleResetGame() {
@@ -166,11 +180,17 @@ class Game extends React.Component {
                 <button 
                   className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                   onClick={() => this.handlePickPlayer()}
-                >X</button>
+                >X 
+                  <span className={`game__player-human ${this.humanPlayer === 'X' ? 'active' : ''}`}>Human<ReactSVG src="./icon-human.svg" /></span>
+                  <span className={`game__player-bot ${this.humanPlayer !== 'X' ? 'active' : ''}`}>Bot<ReactSVG src="./icon-bot.svg" /></span>
+                </button>
                 <button 
                   className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                   onClick={() => this.handlePickPlayer()}
-                >O</button>
+                >O
+                  <span className={`game__player-human ${this.humanPlayer === 'O' ? 'active' : ''}`}>Human<ReactSVG src="./icon-human.svg" /></span>
+                  <span className={`game__player-bot ${this.humanPlayer !== 'O' ? 'active' : ''}`}>Bot<ReactSVG src="./icon-bot.svg" /></span>
+                </button>
               </div>
 
               <div 

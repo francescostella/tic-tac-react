@@ -64,6 +64,7 @@
   }
   
   &__player {
+    position: relative;
     cursor: pointer;
     border: 0;
     width: 33%;
@@ -92,6 +93,20 @@
     &:last-child {
       margin-left: 4px;
       transform-origin: left center;
+    }
+
+    &-human,
+    &-bot {
+      display: none;
+      position: absolute;
+      bottom: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+
+      &.active {
+        display: block;
+      }
     }
   }
 
