@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from '../Board/Board';
 import Utils from '../Utils';
+import AIPlayer from '../AIPlayer';
 import './Game.style.scss'
 
 class Game extends React.Component {
@@ -20,37 +21,74 @@ class Game extends React.Component {
     }
 
     this.baseState = Object.assign({}, this.state);
+    this.AIPlayer = new AIPlayer('easy');
   }
 
   handleClick(i) {
+    if (!this.isAllowedMove()) {
+      return;
+    }
+
+    this.registerMove(i);
+
+    setTimeout(() => {
+      this.passTurnToAI();
+    }, 1000);
+  }
+
+  registerMove(move) {
     const history = this.state.history.slice(0, this.state.history.length + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
 
-    if ((this.state.history.length - 1) !== this.state.stepNumber) {
-      // Prevent players to make a new move if 
-      // a the players are visualizing a previous
-      // move using the 'Moves' tool
-      return;
-    }
-
-    if (Utils.calculateWinner(squares) || squares[i]) {
+    if (squares[move]) {
       return;
     }
 
     const player = this.state.xIsNext ? 'X' : 'O';
 
-    squares[i] = player;
+    squares[move] = player;
 
     this.setState({
       history: history.concat([{
         squares: squares,
-        coordinatesMove: Utils.calculatePosition(i),
+        coordinatesMove: Utils.calculatePosition(move),
         player: player,
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
+  }
+
+  passTurnToAI() {
+    if (!this.isAllowedMove()) {
+      return;
+    }
+
+    const history = this.state.history.slice(0, this.state.history.length + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+
+    const moveAI = AIPlayer.makeMove(squares);
+    this.registerMove(moveAI);
+  }
+
+  isAllowedMove() {
+    const history = this.state.history;
+    const current = history[this.state.stepNumber];
+    const winner = Utils.calculateWinner(current.squares);
+
+    if (!winner) {
+      // Prevent Players move IF there is already a winner
+      return true;
+    }
+
+    if ((this.state.history.length - 1) !== this.state.stepNumber) {
+      // Prevent Players to make a new move if 
+      // a the players are visualizing a previous
+      // move using the 'Moves' tool
+      return true;
+    }
   }
 
   jumpTo(step) {

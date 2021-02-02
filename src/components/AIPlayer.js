@@ -12,32 +12,27 @@ class AIPlayer {
     this.level = levelSkills[difficulty] ? levelSkills[difficulty] : 1;
   }
 
-  bestMove(board) {
+  static bestMove(board) {
     return;
   }
 
-  playDumb(board) {
+  static playDumb(board) {
     let possibleMoves = [];
 
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (board[i, j] === null) {
-          possibleMoves.push({
-            i, j
-          });
-        }
-
-        return Utils.randomItemFromArray(possibleMoves);
-      }
-      
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === null) {
+        possibleMoves.push(i);
+      }  
     }
-    return;
+
+    return Utils.randomItemFromArray(possibleMoves);
   }
 
-  makeMove(board) {
+  static makeMove(board) {
     if (this.level === 2) {
       return this.bestMove(board);
     }
+
     return this.playDumb(board);
   }
 }
