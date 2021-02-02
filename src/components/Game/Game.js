@@ -152,9 +152,7 @@ class Game extends React.Component {
         return moveA.key - moveB.key;
       }
 
-      if (!this.state.sortAscending) {
-        return moveB.key - moveA.key;
-      }
+      return moveB.key - moveA.key;
     });
 
     const isDraw = moves.length === 10 && !winner;
