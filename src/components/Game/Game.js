@@ -29,6 +29,11 @@ class Game extends React.Component {
     this.AIPlayer = new AIPlayer('easy');
   }
 
+  handleResetGame() {
+    this.setState(this.baseState)
+    this.humanPlayer = this.baseState.xIsNext ? 'X' : 'O';
+  }
+
   handleClick(i) {
     if (this.isNotAllowedMove() || this.isPlayingAI) {
       return;
@@ -121,10 +126,6 @@ class Game extends React.Component {
     });
 
     this.humanPlayer = !this.state.xIsNext ? 'X' : 'O';
-  }
-
-  handleResetGame() {
-    this.setState(this.baseState)
   }
 
   handleSort() {
