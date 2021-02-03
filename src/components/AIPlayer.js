@@ -13,7 +13,41 @@ class AIPlayer {
   }
 
   static bestMove(board) {
-    return;
+    let bestScore = -Infinity;
+    let move;
+
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === null) {
+        let score = this.minimax(board, 0, true);
+
+        if (score > bestScore) {
+          bestScore = score;
+          move = i;
+        }
+      }  
+    }
+
+    return move;
+  }
+
+  minimax(board, depth, isMaximizing) {
+    let scores = {
+      X: 1,
+      O: -1,
+      tie: 0
+    };
+
+    const isWinner = Utils.calculateWinner(board);
+
+    if (isWinner) {
+      return scores[isWinner.player];
+    }
+
+    if (isMaximizing) {
+
+    }
+
+    return 1;
   }
 
   static playDumb(board) {
