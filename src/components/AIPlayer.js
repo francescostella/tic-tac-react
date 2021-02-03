@@ -10,13 +10,13 @@ class AIPlayer {
     this.level = levelSkills[difficulty] ? levelSkills[difficulty] : 1;
 
     this.currentAIPlayerMark = markAIPlayer;
-    console.log("🚀 ~ file: AIPlayer.js ~ line 13 ~ AIPlayer ~ constructor ~ this.currentAIPlayerMark", this.currentAIPlayerMark)
     this.currentHumanPlayerMark = markAIPlayer === 'X' ? 'O' : 'X';
     this.scores = {
       [this.currentAIPlayerMark]: 10,
       [this.currentHumanPlayerMark]: -10,
       tie: 0
     };
+    console.log("🚀 ~ file: AIPlayer.js ~ line 13 ~ AIPlayer ~ constructor ~ this.currentAIPlayerMark", this.currentAIPlayerMark)
     console.log("🚀 ~ file: AIPlayer.js ~ line 16 ~ AIPlayer ~ constructor ~ this.scores", this.scores)
   }
 
@@ -31,7 +31,7 @@ class AIPlayer {
     for (let i = 0; i < board.length; i++) {
       if (board[i] === null) {
         board[i] = this.currentAIPlayerMark;
-        let score = this.minimax(board, this.currentAIPlayerMark, false);
+        let score = this.minimax(board, false);
         board[i] = null;
 
         if (score > bestScore) {
