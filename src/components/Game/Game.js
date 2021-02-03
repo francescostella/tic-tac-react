@@ -1,5 +1,6 @@
 import React from 'react';
-import { ReactSVG } from 'react-svg';
+import HumanPlayerAvatar from '../../assets/icons/icon-human.svg';
+import BotPlayerAvatar from '../../assets/icons/icon-bot.svg'
 import Board from '../Board/Board';
 import Utils from '../Utils';
 import AIPlayer from '../AIPlayer';
@@ -178,18 +179,30 @@ class Game extends React.Component {
             <div className="game__header">
               <div className="game__players">
                 <button 
-                  className={`game__player ${this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
+                  className={`game__player game__player--left ${this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                   onClick={() => this.handlePickPlayer()}
                 >X 
-                  <span className={`game__player-human ${this.humanPlayer === 'X' ? 'active' : ''}`}>Human<ReactSVG src="./icon-human.svg" /></span>
-                  <span className={`game__player-bot ${this.humanPlayer !== 'X' ? 'active' : ''}`}>Bot<ReactSVG src="./icon-bot.svg" /></span>
+                  <span className={`game__player-label game__player-label--human ${this.humanPlayer === 'X' ? 'active' : ''}`}>
+                    You
+                  </span>
+                  <img className={`game__player-icon game__player-icon--human ${this.humanPlayer === 'X' ? 'active' : ''}`} src={HumanPlayerAvatar} alt="Human avatar"/>
+                  <span className={`game__player-label game__player-label--bot ${this.humanPlayer !== 'X' ? 'active' : ''}`}>
+                    Bot
+                  </span>
+                  <img className={`game__player-icon game__player-icon--bot ${this.humanPlayer !== 'X' ? 'active' : ''}`} src={BotPlayerAvatar} alt="Bot avatar"/>
                 </button>
                 <button 
-                  className={`game__player ${!this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
+                  className={`game__player game__player--right ${!this.state.xIsNext ? " game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                   onClick={() => this.handlePickPlayer()}
                 >O
-                  <span className={`game__player-human ${this.humanPlayer === 'O' ? 'active' : ''}`}>Human<ReactSVG src="./icon-human.svg" /></span>
-                  <span className={`game__player-bot ${this.humanPlayer !== 'O' ? 'active' : ''}`}>Bot<ReactSVG src="./icon-bot.svg" /></span>
+                  <span className={`game__player-label game__player-label--human ${this.humanPlayer === 'O' ? 'active' : ''}`}>
+                    You
+                  </span>
+                  <img className={`game__player-icon game__player-icon--human ${this.humanPlayer === 'O' ? 'active' : ''}`} src={HumanPlayerAvatar} alt="Human avatar"/>
+                  <span className={`game__player-label game__player-label--bot ${this.humanPlayer !== 'O' ? 'active' : ''}`}>
+                    Bot
+                  </span>
+                  <img className={`game__player-icon game__player-icon--bot ${this.humanPlayer !== 'O' ? 'active' : ''}`} src={BotPlayerAvatar} alt="Bot avatar"/>
                 </button>
               </div>
 
