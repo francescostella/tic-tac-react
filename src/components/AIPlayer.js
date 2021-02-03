@@ -1,24 +1,38 @@
 import Utils from '../components/Utils';
 
 class AIPlayer {
-  level = 1;
-
-  constructor(difficulty) {
+  constructor(difficulty, markAIPlayer) {
     let levelSkills = {
       easy: 1,
       insane: 2,
     };
 
     this.level = levelSkills[difficulty] ? levelSkills[difficulty] : 1;
+
+    this.currentAIPlayerMark = markAIPlayer;
+    console.log("🚀 ~ file: AIPlayer.js ~ line 13 ~ AIPlayer ~ constructor ~ this.currentAIPlayerMark", this.currentAIPlayerMark)
+    this.currentHumanPlayerMark = markAIPlayer === 'X' ? 'O' : 'X';
+    this.scores = {
+      [this.currentAIPlayerMark]: 10,
+      [this.currentHumanPlayerMark]: -10,
+      tie: 0
+    };
+    console.log("🚀 ~ file: AIPlayer.js ~ line 16 ~ AIPlayer ~ constructor ~ this.scores", this.scores)
   }
 
-  static bestMove(board) {
+  getLevel() {
+    return this.level;
+  }
+
+  bestMove(board) {
     let bestScore = -Infinity;
     let move;
 
     for (let i = 0; i < board.length; i++) {
       if (board[i] === null) {
-        let score = this.minimax(board, 0, true);
+        board[i] = this.currentAIPlayerMark;
+        let score = this.minimax(board, this.currentAIPlayerMark, false);
+        board[i] = null;
 
         if (score > bestScore) {
           bestScore = score;
@@ -30,27 +44,49 @@ class AIPlayer {
     return move;
   }
 
-  minimax(board, depth, isMaximizing) {
-    let scores = {
-      X: 1,
-      O: -1,
-      tie: 0
-    };
-
+  minimax(board, isMaximizing) {
     const isWinner = Utils.calculateWinner(board);
+    const isTie = Utils.calculateTie(board);
+
+    if (isTie && !isWinner) {
+      return this.scores['tie'];
+    }
 
     if (isWinner) {
-      return scores[isWinner.player];
+      return this.scores[isWinner.player];
     }
 
     if (isMaximizing) {
+      let bestScore = -Infinity;
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === null) {
+          board[i] = this.currentAIPlayerMark;
+          let score = this.minimax(board, false);
+          board[i] = null;
+          bestScore = Math.max(score, bestScore);
+        }
+      }
 
+      return bestScore;
     }
 
-    return 1;
+    if (!isMaximizing) {
+      let bestScore = Infinity;
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === null) {
+          board[i] = this.currentHumanPlayerMark;
+          let score = this.minimax(board, true);
+          board[i] = null;
+          bestScore = Math.min(score, bestScore);
+        }
+      }
+      
+      return bestScore;
+    }
+
   }
 
-  static playDumb(board) {
+  playDumb(board) {
     let possibleMoves = [];
 
     for (let i = 0; i < board.length; i++) {
@@ -62,11 +98,13 @@ class AIPlayer {
     return Utils.randomItemFromArray(possibleMoves);
   }
 
-  static makeMove(board) {
+  makeMove(board, currentAIPlayerMark) {
     if (this.level === 2) {
-      return this.bestMove(board);
+      console.log('BOT went INSANE!!!');
+      return this.bestMove(board, currentAIPlayerMark);
     }
 
+    console.log('BOT is relaxing...');
     return this.playDumb(board);
   }
 }

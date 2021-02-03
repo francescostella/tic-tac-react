@@ -26,6 +26,14 @@ Utils.calculateWinner = (squares) => {
   return null;
 }
 
+Utils.calculateTie = (squares) => {
+  if (!squares) {
+    return false;
+  }
+
+  return squares.every((item)=> item);
+}
+
 Utils.calculatePosition = (index) => {
   switch (index) {
     case 0:

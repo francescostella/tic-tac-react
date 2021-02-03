@@ -23,15 +23,21 @@ class Game extends React.Component {
       sortAscending: true,
     }
     
-    this.isPlayingAI = false;
-    this.humanPlayer = this.state.xIsNext ? 'X' : 'O';
+    this.currentHumanPlayerMark = this.state.xIsNext ? 'X' : 'O';
+
     this.baseState = Object.assign({}, this.state);
-    this.AIPlayer = new AIPlayer('easy');
+    this.AIPlayer = new AIPlayer('insane', this.getCurrentAIPlayerMark());
+    
+    this.isPlayingAI = false;
+  }
+
+  getCurrentAIPlayerMark() {
+    return this.currentHumanPlayerMark === 'X' ? 'O' : 'X';
   }
 
   handleResetGame() {
     this.setState(this.baseState)
-    this.humanPlayer = this.baseState.xIsNext ? 'X' : 'O';
+    this.currentHumanPlayerMark = this.baseState.xIsNext ? 'X' : 'O';
   }
 
   handleClick(i) {
@@ -83,7 +89,7 @@ class Game extends React.Component {
       const current = history[history.length - 1];
       const squares = current.squares.slice();
   
-      const moveAI = AIPlayer.makeMove(squares);
+      const moveAI = this.AIPlayer.makeMove(squares, this.getCurrentAIPlayerMark());
       this.registerMove(moveAI, false);
       this.isPlayingAI = false;
     }, 1000);
@@ -125,7 +131,8 @@ class Game extends React.Component {
       xIsNext: !this.state.xIsNext
     });
 
-    this.humanPlayer = !this.state.xIsNext ? 'X' : 'O';
+    this.currentHumanPlayerMark = !this.state.xIsNext ? 'X' : 'O';
+    this.AIPlayer = new AIPlayer('insane', this.getCurrentAIPlayerMark());
   }
 
   handleSort() {
@@ -182,27 +189,27 @@ class Game extends React.Component {
                   className={`game__player game__player--left ${this.state.xIsNext ? "game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                   onClick={() => this.handlePickPlayer()}
                 >X 
-                  <span className={`game__player-label game__player-label--human ${this.humanPlayer === 'X' ? 'active' : ''}`}>
+                  <span className={`game__player-label game__player-label--human ${this.currentHumanPlayerMark === 'X' ? 'active' : ''}`}>
                     You
                   </span>
-                  <img className={`game__player-icon game__player-icon--human ${this.humanPlayer === 'X' ? 'active' : ''}`} src={HumanPlayerAvatar} alt="Human avatar"/>
-                  <span className={`game__player-label game__player-label--bot ${this.humanPlayer !== 'X' ? 'active' : ''}`}>
+                  <img className={`game__player-icon game__player-icon--human ${this.currentHumanPlayerMark === 'X' ? 'active' : ''}`} src={HumanPlayerAvatar} alt="Human avatar"/>
+                  <span className={`game__player-label game__player-label--bot ${this.currentHumanPlayerMark !== 'X' ? 'active' : ''}`}>
                     Bot
                   </span>
-                  <img className={`game__player-icon game__player-icon--bot ${this.humanPlayer !== 'X' ? 'active' : ''}`} src={BotPlayerAvatar} alt="Bot avatar"/>
+                  <img className={`game__player-icon game__player-icon--bot ${this.currentHumanPlayerMark !== 'X' ? 'active' : ''}`} src={BotPlayerAvatar} alt="Bot avatar"/>
                 </button>
                 <button 
                   className={`game__player game__player--right ${!this.state.xIsNext ? " game__player--active" : ""} ${winner || isDraw ? "hidden" : ""}`}
                   onClick={() => this.handlePickPlayer()}
                 >O
-                  <span className={`game__player-label game__player-label--human ${this.humanPlayer === 'O' ? 'active' : ''}`}>
+                  <span className={`game__player-label game__player-label--human ${this.currentHumanPlayerMark === 'O' ? 'active' : ''}`}>
                     You
                   </span>
-                  <img className={`game__player-icon game__player-icon--human ${this.humanPlayer === 'O' ? 'active' : ''}`} src={HumanPlayerAvatar} alt="Human avatar"/>
-                  <span className={`game__player-label game__player-label--bot ${this.humanPlayer !== 'O' ? 'active' : ''}`}>
+                  <img className={`game__player-icon game__player-icon--human ${this.currentHumanPlayerMark === 'O' ? 'active' : ''}`} src={HumanPlayerAvatar} alt="Human avatar"/>
+                  <span className={`game__player-label game__player-label--bot ${this.currentHumanPlayerMark !== 'O' ? 'active' : ''}`}>
                     Bot
                   </span>
-                  <img className={`game__player-icon game__player-icon--bot ${this.humanPlayer !== 'O' ? 'active' : ''}`} src={BotPlayerAvatar} alt="Bot avatar"/>
+                  <img className={`game__player-icon game__player-icon--bot ${this.currentHumanPlayerMark !== 'O' ? 'active' : ''}`} src={BotPlayerAvatar} alt="Bot avatar"/>
                 </button>
               </div>
 
