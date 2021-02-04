@@ -56,6 +56,7 @@ class AIPlayer {
 
     if (isMaximizing) {
       let bestScore = -Infinity;
+
       for (let i = 0; i < board.length; i++) {
         if (board[i] === null) {
           board[i] = this.currentAIPlayerMark;
@@ -70,6 +71,7 @@ class AIPlayer {
 
     if (!isMaximizing) {
       let bestScore = Infinity;
+      
       for (let i = 0; i < board.length; i++) {
         if (board[i] === null) {
           board[i] = this.currentHumanPlayerMark;
