@@ -2,17 +2,18 @@ import React from 'react';
 
 // Components
 import Board from '../Board/Board';
+import GameSettings from '../GameSettings/GameSettings';
 
 // Classes
 import AIPlayer from '../AIPlayer';
 import Utils from '../Utils';
+import AppSettings from '../AppSettings';
+
 
 // Assets
 import './Game.style.scss'
 import HumanPlayerAvatar from '../../assets/icons/icon-human.svg';
 import BotPlayerAvatar from '../../assets/icons/icon-bot.svg'
-
-const DELAY_AIPLAYER_MOVE = 1000;
 
 class Game extends React.Component {
   constructor(props) {
@@ -30,7 +31,11 @@ class Game extends React.Component {
       xIsNext: true,
       sortAscending: true,
       showMoves: false,
-      showGameSettings: false,
+      showGameSettings: true,
+      settings: {
+        gameType: AppSettings.GAME_TYPE.HUMAN_VS_BOT,
+        botLevel: AppSettings.BOT_LEVEL.EASY
+      },
     }
     
     // Clone initial state, so it can be used on reset game
@@ -101,7 +106,7 @@ class Game extends React.Component {
       const moveAI = this.AIPlayer.makeMove(squares, Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
       this.registerMove(moveAI, false);
       this.isPlayingAI = false;
-    }, DELAY_AIPLAYER_MOVE);
+    }, AppSettings.DELAY_AIPLAYER_MOVE);
   }
 
   isNotAllowedMove() {
@@ -239,6 +244,10 @@ class Game extends React.Component {
               </div>
             </div>
             <div className="game__board">
+              <div className={`game__settings ${this.state.showGameSettings ? 'game__settings--show' : 'game__settings--hide'}`}>
+                <GameSettings settings={this.state.settings} />
+              </div>
+              
               <Board
                 winnerLine={winner?.line}
                 squares={current.squares}
@@ -250,6 +259,7 @@ class Game extends React.Component {
                 <button 
                   className="game__button game__button--game-settings"
                   onClick={() => this.toggleGameSettings()}
+                  disabled={moves.length > 1}
                 >
                   Game Settings
                 </button>

@@ -1,0 +1,38 @@
+.game-settings {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: 0;
+  left: 0;
+  border: 2px solid #cdc24e;
+
+  background: rgba(0, 102, 43, 1);
+  z-index: 1;
+  padding: 10px 30px;
+  transition: all .2s ease-in-out;
+  font-size: 16px;
+
+  &__title {
+    margin: 5px 0;
+    text-align: center;
+    font-size: 19px;
+  }
+
+  &__subtitle {
+    font-size: 15px;
+  }
+
+  &__options {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  &__option {
+    margin-bottom: 5px;
+    
+    button {
+      font-size: 16px;
+    }
+  }
+}
