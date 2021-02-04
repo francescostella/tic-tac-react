@@ -30,6 +30,7 @@ class Game extends React.Component {
       xIsNext: true,
       sortAscending: true,
       showMoves: false,
+      showGameSettings: false,
     }
     
     // Clone initial state, so it can be used on reset game
@@ -158,6 +159,12 @@ class Game extends React.Component {
     });
   }
 
+  toggleGameSettings() {
+    this.setState({
+      showGameSettings: !this.state.showGameSettings
+    });
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -240,6 +247,12 @@ class Game extends React.Component {
             </div>
             <div className="game__info">
               <div className="game__controls">
+                <button 
+                  className="game__button game__button--game-settings"
+                  onClick={() => this.toggleGameSettings()}
+                >
+                  Game Settings
+                </button>
                 <button 
                   className="game__button game__button--show-moves"
                   onClick={() => this.toggleMoveList()}
