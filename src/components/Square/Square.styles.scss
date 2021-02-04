@@ -19,8 +19,10 @@
   cursor: pointer;
   transition: background .4s ease-in-out;
 
-  &:hover {
-    background-color: rgba(#cdc24e, .2);
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgba(#cdc24e, .2);
+    }
   }
 
   &:focus {

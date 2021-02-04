@@ -50,8 +50,10 @@
       display: block;
       background-color: rgba(19, 170, 82, 1);
 
-      &:hover {
-        background: rgba(0, 102, 43, .5);
+      @media (hover: hover) {
+        &:hover {
+          background: rgba(0, 102, 43, .5);
+        }
       }
     }
   }
@@ -171,8 +173,10 @@
         opacity: .35;
       }
 
-      &:hover {
-        background-color: rgb(36, 36, 36);
+      @media (hover: hover) {
+        &:hover {
+          background-color: rgb(36, 36, 36);
+        }
       }
     }
   }
@@ -215,7 +219,12 @@
       background-color: #fff;
       border-radius: 5px;
 
-      &:hover,
+      @media (hover: hover) {
+        &:hover {
+          background-color: #fff477;
+        }
+      }
+
       &:focus {
         background-color: #fff477;
       }
