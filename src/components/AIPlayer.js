@@ -16,8 +16,6 @@ class AIPlayer {
       [this.currentHumanPlayerMark]: -10,
       tie: 0
     };
-    console.log("🚀 ~ file: AIPlayer.js ~ line 13 ~ AIPlayer ~ constructor ~ this.currentAIPlayerMark", this.currentAIPlayerMark)
-    console.log("🚀 ~ file: AIPlayer.js ~ line 16 ~ AIPlayer ~ constructor ~ this.scores", this.scores)
   }
 
   getLevel() {

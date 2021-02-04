@@ -1,10 +1,18 @@
 import React from 'react';
+
+// Components
+import Board from '../Board/Board';
+
+// Classes
+import AIPlayer from '../AIPlayer';
+import Utils from '../Utils';
+
+// Assets
+import './Game.style.scss'
 import HumanPlayerAvatar from '../../assets/icons/icon-human.svg';
 import BotPlayerAvatar from '../../assets/icons/icon-bot.svg'
-import Board from '../Board/Board';
-import Utils from '../Utils';
-import AIPlayer from '../AIPlayer';
-import './Game.style.scss'
+
+const DELAY_AIPLAYER_MOVE = 1000;
 
 class Game extends React.Component {
   constructor(props) {
@@ -23,16 +31,15 @@ class Game extends React.Component {
       sortAscending: true,
     }
     
-    this.currentHumanPlayerMark = this.state.xIsNext ? 'X' : 'O';
-
+    // Clone initial state, so it can be used on reset game
     this.baseState = Object.assign({}, this.state);
-    this.AIPlayer = new AIPlayer('insane', this.getCurrentAIPlayerMark());
-    
-    this.isPlayingAI = false;
-  }
 
-  getCurrentAIPlayerMark() {
-    return this.currentHumanPlayerMark === 'X' ? 'O' : 'X';
+    this.currentHumanPlayerMark = this.state.xIsNext ? 'X' : 'O';
+    this.AIPlayer = new AIPlayer('insane', Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
+    
+    // Flag used to keep track of when the AI is playing
+    // in order to prevent any UI interaction causing overlapses
+    this.isPlayingAI = false;
   }
 
   handleResetGame() {
@@ -89,10 +96,10 @@ class Game extends React.Component {
       const current = history[history.length - 1];
       const squares = current.squares.slice();
   
-      const moveAI = this.AIPlayer.makeMove(squares, this.getCurrentAIPlayerMark());
+      const moveAI = this.AIPlayer.makeMove(squares, Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
       this.registerMove(moveAI, false);
       this.isPlayingAI = false;
-    }, 1000);
+    }, DELAY_AIPLAYER_MOVE);
 
   }
 
@@ -132,18 +139,10 @@ class Game extends React.Component {
     });
 
     this.currentHumanPlayerMark = !this.state.xIsNext ? 'X' : 'O';
-    this.AIPlayer = new AIPlayer('insane', this.getCurrentAIPlayerMark());
+    this.AIPlayer = new AIPlayer('insane', Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
   }
 
-  handleSort() {
-    if (this.state.sortAscending) {
-      // ASC
-    }
-
-    if (!this.state.sortAscending) {
-      // DESC
-    }
-
+  toggleSorting() {
     this.setState({
       sortAscending: !this.state.sortAscending
     });
@@ -233,7 +232,7 @@ class Game extends React.Component {
               <div className="game__controls">
                 <button 
                   className="game__controls-order"
-                  onClick={() => this.handleSort()}
+                  onClick={() => this.toggleSorting()}
                   disabled={moves.length < 2}
                 >
                   Order by <span>{this.state.sortAscending ? '▲' : '▼'}</span>
