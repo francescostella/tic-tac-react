@@ -29,6 +29,7 @@ class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true,
       sortAscending: true,
+      showMoves: false,
     }
     
     // Clone initial state, so it can be used on reset game
@@ -151,6 +152,12 @@ class Game extends React.Component {
     });
   }
 
+  toggleMoveList() {
+    this.setState({
+      showMoves: !this.state.showMoves
+    });
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -234,14 +241,23 @@ class Game extends React.Component {
             <div className="game__info">
               <div className="game__controls">
                 <button 
-                  className="game__controls-order"
+                  className="game__button game__button--show-moves"
+                  onClick={() => this.toggleMoveList()}
+                >
+                  <span>{`${(this.state.showMoves ? "Hide" : "Show")}`}</span>
+                  {' '}Moves
+                </button>
+              </div>
+              <div className={`game__moves-box ${this.state.showMoves ? "game__moves-box--opened" : "game__moves-box--closed"}`}>
+                <button 
+                  className="game__button game__button--sorting"
                   onClick={() => this.toggleSorting()}
                   disabled={moves.length < 2}
                 >
-                  Order by <span>{this.state.sortAscending ? '▲' : '▼'}</span>
+                  Order by <span className="game__button-icon">{this.state.sortAscending ? '▲' : '▼'}</span>
                 </button>
+                <ol className="game__moves">{moves}</ol>
               </div>
-              <ol className="game__moves">{moves}</ol>
             </div>
           </div>
         </div>

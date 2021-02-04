@@ -155,29 +155,33 @@
   &__controls {
     display: flex;
     justify-content: flex-end;
+  }
 
-    &-order {
-      border-radius: 3px;
-      border: 0;
-      padding: 4px 8px;
-      background-color: #000;
-      color: #fff477;
-      transition: opacity .4s ease-in-out;
-      cursor: pointer;
-      
-      span {
-        font-size: 11px;
-      }
+  &__button {
+    border-radius: 3px;
+    border: 0;
+    padding: 4px 8px;
+    background-color: #000;
+    color: #fff477;
+    transition: opacity .4s ease-in-out;
+    cursor: pointer;
 
-      &:disabled {
-        opacity: .35;
-      }
+    &-icon {
+      font-size: 11px;
+    }
 
-      @media (hover: hover) {
-        &:hover {
-          background-color: rgb(36, 36, 36);
-        }
+    &:disabled {
+      opacity: .35;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgb(36, 36, 36);
       }
+    }
+
+    &--sorting {
+      //
     }
   }
 
@@ -186,6 +190,20 @@
     list-style-type: none;
     counter-reset: moves-counter;
     margin: 10px 0;
+
+    &-box {
+      overflow: hidden;
+      transition: max-height .4s ease-out;
+
+      &--closed {
+        max-height: 0;
+      }
+
+      &--opened {
+        max-height: 500px;
+        transition: max-height .25s ease-in;
+      }
+    }
   }
 
   &__move {
