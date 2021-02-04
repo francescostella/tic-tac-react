@@ -25,7 +25,7 @@ class Utils {
     return null;
   }
   
-  static calculateTie(squares) {
+  static calculateDraw(squares) {
     if (!squares) {
       return false;
     }

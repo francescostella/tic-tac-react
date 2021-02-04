@@ -14,7 +14,7 @@ class AIPlayer {
     this.scores = {
       [this.currentAIPlayerMark]: 10,
       [this.currentHumanPlayerMark]: -10,
-      tie: 0
+      draw: 0
     };
   }
 
@@ -44,10 +44,10 @@ class AIPlayer {
 
   minimax(board, isMaximizing) {
     const isWinner = Utils.calculateWinner(board);
-    const isTie = Utils.calculateTie(board);
+    const isDraw = Utils.calculateDraw(board);
 
-    if (isTie && !isWinner) {
-      return this.scores['tie'];
+    if (isDraw && !isWinner) {
+      return this.scores['draw'];
     }
 
     if (isWinner) {

@@ -100,16 +100,19 @@ class Game extends React.Component {
       this.registerMove(moveAI, false);
       this.isPlayingAI = false;
     }, DELAY_AIPLAYER_MOVE);
-
   }
 
   isNotAllowedMove() {
     const history = this.state.history;
     const current = history[history.length - 1];
-    const winner = Utils.calculateWinner(current.squares);
 
-    if (winner) {
+    if (Utils.calculateWinner(current.squares)) {
       // Prevent Players move IF there is already a winner
+      return true;
+    }
+
+    if (Utils.calculateDraw(current.squares)) {
+      // Prevent Players move IF it's a draw
       return true;
     }
 
