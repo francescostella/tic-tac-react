@@ -1,13 +1,8 @@
 import Utils from '../components/Utils';
-
+import Config from '../components/Config';
 class AIPlayer {
   constructor(difficulty, markAIPlayer) {
-    let levelSkills = {
-      easy: 1,
-      insane: 2,
-    };
-
-    this.level = levelSkills[difficulty] ? levelSkills[difficulty] : 1;
+    this.level = difficulty ? difficulty : Config.BOT_LEVEL.EASY;
 
     this.currentAIPlayerMark = markAIPlayer;
     this.currentHumanPlayerMark = markAIPlayer === 'X' ? 'O' : 'X';
@@ -99,7 +94,7 @@ class AIPlayer {
   }
 
   makeMove(board, currentAIPlayerMark) {
-    if (this.level === 2) {
+    if (this.level === Config.BOT_LEVEL.INSANE) {
       return this.bestMove(board, currentAIPlayerMark);
     }
 

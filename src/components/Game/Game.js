@@ -42,11 +42,15 @@ class Game extends React.Component {
     this.baseState = Object.assign({}, this.state);
 
     this.currentHumanPlayerMark = this.state.xIsNext ? 'X' : 'O';
-    this.AIPlayer = new AIPlayer('insane', Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
+    this.AIPlayer = this.createAIPlayer(this.state.settings.botLevel);
     
     // Flag used to keep track of when the AI is playing
     // in order to prevent any UI interaction causing overlapses
     this.isPlayingAI = false;
+  }
+
+  createAIPlayer(level) {
+    return new AIPlayer(level, Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
   }
 
   handleResetGame() {
@@ -85,7 +89,7 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     }, () => {
-      if (currentIsHuman) {
+      if (currentIsHuman && this.AIPlayer) {
         this.passTurnToAI();
       }
     });
@@ -144,6 +148,14 @@ class Game extends React.Component {
       return;
     }
 
+    if (type === Config.GAME_TYPE.HUMAN_VS_BOT) {
+      this.AIPlayer = this.createAIPlayer(this.state.settings.botLevel);
+    }
+
+    if (type === Config.GAME_TYPE.HUMAN_VS_HUMAN) {
+      this.AIPlayer = null;
+    }
+
     this.setState({
       settings: {
         ...this.state.settings,
@@ -158,6 +170,8 @@ class Game extends React.Component {
       return;
     }
 
+    this.AIPlayer = this.createAIPlayer(level);
+
     this.setState({
       settings: {
         ...this.state.settings,
@@ -165,7 +179,6 @@ class Game extends React.Component {
       }
     });
   }
-
 
   handlePickPlayer() {
     if (this.state.stepNumber !== 0 || this.state.history.length > 1) {
@@ -178,7 +191,7 @@ class Game extends React.Component {
     });
 
     this.currentHumanPlayerMark = !this.state.xIsNext ? 'X' : 'O';
-    this.AIPlayer = new AIPlayer('insane', Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
+    this.AIPlayer = this.createAIPlayer(this.state.settings.botLevel);
   }
 
   toggleSorting() {
