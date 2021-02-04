@@ -1,4 +1,4 @@
-class AppSettings {
+class Config {
   static DELAY_AIPLAYER_MOVE = 1000;
   static GAME_TYPE = {
     HUMAN_VS_BOT: 1,
@@ -11,4 +11,4 @@ class AppSettings {
   };
 }
 
-export default AppSettings;
+export default Config;

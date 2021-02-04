@@ -7,7 +7,7 @@ import GameSettings from '../GameSettings/GameSettings';
 // Classes
 import AIPlayer from '../AIPlayer';
 import Utils from '../Utils';
-import AppSettings from '../AppSettings';
+import Config from '../Config';
 
 
 // Assets
@@ -33,8 +33,8 @@ class Game extends React.Component {
       showMoves: false,
       showGameSettings: true,
       settings: {
-        gameType: AppSettings.GAME_TYPE.HUMAN_VS_BOT,
-        botLevel: AppSettings.BOT_LEVEL.EASY
+        gameType: Config.GAME_TYPE.HUMAN_VS_BOT,
+        botLevel: Config.BOT_LEVEL.EASY
       },
     }
     
@@ -106,7 +106,7 @@ class Game extends React.Component {
       const moveAI = this.AIPlayer.makeMove(squares, Utils.getCurrentAIPlayerMark(this.currentHumanPlayerMark));
       this.registerMove(moveAI, false);
       this.isPlayingAI = false;
-    }, AppSettings.DELAY_AIPLAYER_MOVE);
+    }, Config.DELAY_AIPLAYER_MOVE);
   }
 
   isNotAllowedMove() {

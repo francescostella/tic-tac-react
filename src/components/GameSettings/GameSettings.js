@@ -1,6 +1,6 @@
 import React from 'react';
 import './GameSettings.scss';
-import AppSettings from '../AppSettings';
+import Config from '../Config';
 
 class GameSettings extends React.Component {
 
@@ -14,13 +14,13 @@ class GameSettings extends React.Component {
         <ul className="game-settings__options">
           <li className="game-settings__option">
             <button
-              disabled={this.props.settings.gameType === AppSettings.GAME_TYPE.HUMAN_VS_BOT}
+              disabled={this.props.settings.gameType === Config.GAME_TYPE.HUMAN_VS_BOT}
             >Human VS Bot</button>
           </li>
 
           <li className="game-settings__option">
             <button
-              disabled={this.props.settings.gameType === AppSettings.GAME_TYPE.HUMAN_VS_HUMAN}
+              disabled={this.props.settings.gameType === Config.GAME_TYPE.HUMAN_VS_HUMAN}
             >Human VS Human</button>
           </li>
         </ul>
@@ -30,13 +30,13 @@ class GameSettings extends React.Component {
         <ul className="game-settings__options">
           <li className="game-settings__option">
             <button 
-              disabled={this.props.settings.botLevel === AppSettings.BOT_LEVEL.EASY}
+              disabled={this.props.settings.botLevel === Config.BOT_LEVEL.EASY}
             >Easy</button>
           </li>
 
           <li className="game-settings__option">
             <button
-              disabled={this.props.settings.botLevel === AppSettings.BOT_LEVEL.INSANE}
+              disabled={this.props.settings.botLevel === Config.BOT_LEVEL.INSANE}
             >Insane</button>
           </li>
         </ul>
