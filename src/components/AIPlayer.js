@@ -98,11 +98,9 @@ class AIPlayer {
 
   makeMove(board, currentAIPlayerMark) {
     if (this.level === 2) {
-      console.log('BOT went INSANE!!!');
       return this.bestMove(board, currentAIPlayerMark);
     }
 
-    console.log('BOT is relaxing...');
     return this.playDumb(board);
   }
 }
