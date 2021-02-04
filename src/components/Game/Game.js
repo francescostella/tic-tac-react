@@ -31,7 +31,7 @@ class Game extends React.Component {
       xIsNext: true,
       sortAscending: true,
       showMoves: false,
-      showGameSettings: true,
+      showGameSettings: false,
       settings: {
         gameType: Config.GAME_TYPE.HUMAN_VS_BOT,
         botLevel: Config.BOT_LEVEL.EASY
@@ -137,6 +137,35 @@ class Game extends React.Component {
       xIsNext: (step % 2) === 0,
     });
   }
+
+  handleSetGameType(type) {
+    if (!type) {
+      // Do nothing
+      return;
+    }
+
+    this.setState({
+      settings: {
+        ...this.state.settings,
+        gameType: type
+      }
+    });
+  }
+
+  handleSetBotLevel(level) {
+    if (!level) {
+      // Do nothing
+      return;
+    }
+
+    this.setState({
+      settings: {
+        ...this.state.settings,
+        botLevel: level
+      }
+    });
+  }
+
 
   handlePickPlayer() {
     if (this.state.stepNumber !== 0 || this.state.history.length > 1) {
@@ -245,7 +274,11 @@ class Game extends React.Component {
             </div>
             <div className="game__board">
               <div className={`game__settings ${this.state.showGameSettings ? 'game__settings--show' : 'game__settings--hide'}`}>
-                <GameSettings settings={this.state.settings} />
+                <GameSettings
+                  settings={this.state.settings}
+                  handleSetGameType={this.handleSetGameType.bind(this)} 
+                  handleSetBotLevel={this.handleSetBotLevel.bind(this)} 
+                />
               </div>
               
               <Board

@@ -30,9 +30,24 @@
 
   &__option {
     margin-bottom: 5px;
-    
+
     button {
       font-size: 16px;
+      background: rgb(0, 80, 34);
+      border: 1px solid #fff477;
+      color: #fff477;
+      padding: 4px;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: .35;
+      }
+
+      @media (hover: hover) {
+        &:hover:not(:disabled) {
+          background-color: rgb(36, 36, 36);
+        }
+      }
     }
   }
 }

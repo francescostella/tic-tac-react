@@ -199,7 +199,7 @@
     }
 
     @media (hover: hover) {
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: rgb(36, 36, 36);
       }
     }
