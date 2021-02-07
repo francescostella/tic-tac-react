@@ -1,6 +1,10 @@
-# Tic Tac React (...Toe)
+# Tic Tac React
 
-Tic Tac React (Toe): Mine customized version of [React Official Tutorial of TicTacToe](https://reactjs.org/tutorial/tutorial.html)
+Tic Tac React is my customized version of [React Official Tutorial of TicTacToe](https://reactjs.org/tutorial/tutorial.html) that I extended with: 
+- game mode: choose between "Human VS Human" and "Human VS Bot"
+- AI Player: an Artificial Intelligence player to play against
+- AI Player levels: 'easy' (you can win the AI) and 'insane' (in practice: you can't never win against the AI, because the AI will never make a mistake)
+
 ## Available Scripts
 
 In the project directory, you can run:
