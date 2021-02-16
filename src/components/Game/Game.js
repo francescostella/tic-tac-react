@@ -79,7 +79,7 @@ class Game extends React.Component {
 
     squares[move] = player;
 
-    this.setState({
+    this.setState(state => ({
       history: history.concat([{
         squares: squares,
         coordinatesMove: Utils.calculatePosition(move),
@@ -87,8 +87,8 @@ class Game extends React.Component {
         isHuman: currentIsHuman
       }]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext,
-    }, () => {
+      xIsNext: !state.xIsNext,
+    }), () => {
       if (currentIsHuman && this.AIPlayer) {
         this.passTurnToAI();
       }
@@ -156,12 +156,12 @@ class Game extends React.Component {
       this.AIPlayer = null;
     }
 
-    this.setState({
+    this.setState(state => ({
       settings: {
-        ...this.state.settings,
+        ...state.settings,
         gameType: type
       }
-    });
+    }));
   }
 
   handleSetBotLevel(level) {
@@ -172,12 +172,12 @@ class Game extends React.Component {
 
     this.AIPlayer = this.createAIPlayer(level);
 
-    this.setState({
+    this.setState(state => ({
       settings: {
-        ...this.state.settings,
+        ...state.settings,
         botLevel: level
       }
-    });
+    }));
   }
 
   handlePickPlayer() {
@@ -186,30 +186,30 @@ class Game extends React.Component {
       return;
     }
 
-    this.setState({
-      xIsNext: !this.state.xIsNext
-    });
+    this.setState(state => ({
+      xIsNext: !state.xIsNext
+    }));
 
     this.currentHumanPlayerMark = !this.state.xIsNext ? 'X' : 'O';
     this.AIPlayer = this.createAIPlayer(this.state.settings.botLevel);
   }
 
   toggleSorting() {
-    this.setState({
-      sortAscending: !this.state.sortAscending
-    });
+    this.setState(state => ({
+      sortAscending: !state.sortAscending
+    }));
   }
 
   toggleMoveList() {
-    this.setState({
-      showMoves: !this.state.showMoves
-    });
+    this.setState(state => ({
+      showMoves: !state.showMoves
+    }));
   }
 
   toggleGameSettings() {
-    this.setState({
-      showGameSettings: !this.state.showGameSettings
-    });
+    this.setState(state => ({
+      showGameSettings: !state.showGameSettings
+    }));
   }
 
   render() {
