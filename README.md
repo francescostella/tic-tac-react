@@ -1,4 +1,5 @@
 # Tic Tac React
+<img width="715" alt="Tic Tac React - Screenshot" src="https://user-images.githubusercontent.com/1682099/146054332-2a50b4f4-4b0c-4abf-ac75-8ec862c0443b.png">
 
 Tic Tac React is my customized version of [React Official Tutorial of TicTacToe](https://reactjs.org/tutorial/tutorial.html) that I extended with: 
 - game mode: choose between "Human VS Human" and "Human VS Bot"
